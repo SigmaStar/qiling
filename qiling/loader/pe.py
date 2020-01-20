@@ -27,7 +27,8 @@ class Process:
         self.cmdline = b"D:\\" + bytes(self.ql.path.replace("/", "\\"), "utf-8") + b"\x00"
 
     def load_dll(self, dll_name):
-        dll_name = dll_name.lower().decode()
+        dll_name = dll_name.lower().decode().replace('\x00','') 
+        #in case of LoadLibraryExW load a unicode name dll
 
         if self.ql.arch == QL_X86:
             self.ql.dlls = os.path.join("Windows","SysWOW64")
